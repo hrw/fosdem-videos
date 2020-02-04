@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FOSDEM videos</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/datatables.mark.js/2.0.0/datatables.mark.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.min.css"/>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
+    <script type="text/javascript" id="js">
+            $(document).ready(function() {
+                    $("table").DataTable( {
+                            pageLength  : -1,
+                            fixedHeader : true,
+                            mark        : true,
+                            dom         : 'Bft'
+                    });
+    });
+    </script>
+    <style type="text/css">
+
+table.videos {
+        border: 1px solid #000;
+}
+
+table.videos th {
+        text-align: center;
+        padding: 0.5em;
+        line-height: 2em;
+        color: white;
+}
+
+table.videos thead {
+        border: 1px solid black;
+        background-color: grey;
+}
+
+table.videos td {
+        padding: 0.5em;
+}
+
+table.videos tbody tr.odd td {
+        background-color: lightgrey;
+}
+
+.legacy, table.videos tbody tr.odd td.legacy {
+        background-color: lightpink;
+}
+    </style>
+</head>
+<body>
+
+<h1>How to use</h1>
+    <p>There are few features you can use:</p>
+
+    <ul>
+    <li>search field allows to filter table</li>
+    <li>clicking on header entries sorts table</li>
+    </ul>
+
+<h1>Author info</h1>    
+    <p>
+    Table is maintained by <a href="https://marcin.juszkiewicz.com.pl/">Marcin Juszkiewicz</a> &mdash; AArch64/Arm developer working at Red Hat as Linaro assignee.
+    </p>
+
+<h1>Build info</h1>
+    <p>Table generated on <strong>{{ generate_time }}</strong>.</p>
+
+<table class="videos">
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Room</th>
+            <th>Title</th>
+            <th>Persons</th>
+            <th>Slides</th>
+            <th>WebM video</th>
+            <th>MP4 video</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for talk in talks %}
+<tr>
+<td>{{ talk.start }}</td>
+<td>{{ talk.room }}</td>
+<td>{{ talk.persons }}</td>
+<td><a href="https://fosdem.org/2020/schedule/event/{{ talk.slug }}">{{ talk.title }}</a></td>
+<td>
+{% if talk.slides %}
+<a href="{{ talk.slides }}">Slides</a>
+{% endif %}
+</td>
+<td>
+{% if talk.webm %}
+<a href="{{ talk.webm }}">WebM video</a>
+{% endif %}
+</td>
+<td>
+{% if talk.mp4 %}
+<a href="{{ talk.mp4 }}">MP4 video</a>
+{% endif %}
+</td>
+
+</tr>
+{% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
