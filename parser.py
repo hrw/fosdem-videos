@@ -63,6 +63,7 @@ template = env.get_template('index.html.j2')
 
 output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
-                         talks=talks, year=year)
+                         talks=talks, year=year,
+                         years=range(2015, 2021))
 
 print(output)
