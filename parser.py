@@ -65,5 +65,4 @@ output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
                          talks=talks, year=year)
 
-with open('index.html', 'w') as html:
-    html.write(output)
+print(output)
