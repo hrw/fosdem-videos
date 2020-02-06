@@ -3,8 +3,13 @@
 from datetime import date, datetime
 from jinja2 import Environment, FileSystemLoader
 import xml.etree.ElementTree as ET
+import sys
 
-tree = ET.parse('xml')
+xml_file = 'xml'
+if len(sys.argv) > 1:
+    xml_file = sys.argv[1]
+
+tree = ET.parse(xml_file)
 root = tree.getroot()
 
 talks = []
