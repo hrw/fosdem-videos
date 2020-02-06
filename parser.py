@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from datetime import datetime
+from datetime import date, datetime
 from jinja2 import Environment, FileSystemLoader
 import xml.etree.ElementTree as ET
 
@@ -10,6 +10,8 @@ root = tree.getroot()
 talks = []
 
 for day in root.iter('day'):
+
+    year = date.fromisoformat(day.attrib['date']).year
 
     if day.attrib['index'] == '1':
         day_name = 'Sat'
@@ -42,7 +44,7 @@ for day in root.iter('day'):
             for link in talk.find('links'):
                 if 'WebM' in link.text:
                     new_talk['webm'] = link.attrib['href']
-                elif 'mp4' in link.text:
+                elif 'mp4' in link.text or 'mp4' in link.attrib['href']:
                     new_talk['mp4'] = link.attrib['href']
                 elif 'Slides' in link.text or 'Presentation' in link.text:
                     new_talk['slides'] = link.attrib['href']
@@ -56,7 +58,7 @@ template = env.get_template('index.html.j2')
 
 output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
-                         talks=talks)
+                         talks=talks, year=year)
 
 with open('index.html', 'w') as html:
     html.write(output)
