@@ -35,6 +35,9 @@ for day in root.iter('day'):
 
             new_talk['persons'] = ', '.join(persons)
 
+            for link in talk.find('attachments'):
+                new_talk['slides'] = link.attrib['href']
+
             for link in talk.find('links'):
                 if 'WebM' in link.text:
                     new_talk['webm'] = link.attrib['href']
