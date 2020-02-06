@@ -101,7 +101,9 @@ a {
             <th>Speaker(s)</th>
             <th>Title</th>
             <th>Slides</th>
+            {% if show_webm %}
             <th>WebM video</th>
+            {% endif %}
             <th>MP4 video</th>
         </tr>
     </thead>
@@ -118,11 +120,13 @@ a {
 <a href="{{ talk.slides }}">Slides</a>
 {% endif %}
 </td>
+{% if show_webm %}
 <td>
 {% if talk.webm %}
 <a href="{{ talk.webm }}">WebM video</a>
 {% endif %}
 </td>
+{% endif %}
 <td>
 {% if talk.mp4 %}
 <a href="{{ talk.mp4 }}">MP4 video</a>

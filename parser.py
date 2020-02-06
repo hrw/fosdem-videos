@@ -13,6 +13,7 @@ tree = ET.parse(xml_file)
 root = tree.getroot()
 
 talks = []
+show_webm = False
 
 for day in root.iter('day'):
 
@@ -49,6 +50,7 @@ for day in root.iter('day'):
             for link in talk.find('links'):
                 if 'WebM' in link.text:
                     new_talk['webm'] = link.attrib['href']
+                    show_webm = True
                 elif 'mp4' in link.text or 'mp4' in link.attrib['href']:
                     new_talk['mp4'] = link.attrib['href']
                 elif 'Slides' in link.text or 'Presentation' in link.text:
@@ -63,7 +65,7 @@ template = env.get_template('index.html.j2')
 
 output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
-                         talks=talks, year=year,
+                         talks=talks, year=year, show_webm=show_webm,
                          years=range(2015, 2021))
 
 print(output)
