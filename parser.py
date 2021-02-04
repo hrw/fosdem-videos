@@ -66,6 +66,6 @@ template = env.get_template('index.html.j2')
 output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
                          talks=talks, year=year, show_webm=show_webm,
-                         years=range(2015, 2021))
+                         years=range(2015, 2022))
 
 print(output)
