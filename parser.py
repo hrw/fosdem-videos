@@ -38,6 +38,7 @@ for day in root.iter('day'):
                 'slug': talk.find('slug').text,
             }
 
+            talk_with_video = False
             persons = []
 
             for person in talk.find('persons').iter('person'):
@@ -53,16 +54,18 @@ for day in root.iter('day'):
             for link in talk.find('links'):
                 if 'WebM' in link.text:
                     new_talk['webm'] = link.attrib['href']
-                    videos += 1
+                    talk_with_video = True
                     show_webm = True
                 elif 'mp4' in link.text or 'mp4' in link.attrib['href']:
                     new_talk['mp4'] = link.attrib['href']
-                    videos += 1
+                    talk_with_video = True
                 elif 'Slides' in link.text or 'Presentation' in link.text:
                     new_talk['slides'] = link.attrib['href']
                     slides += 1
 
             talks.append(new_talk)
+            if talk_with_video:
+                videos += 1
 
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
