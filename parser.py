@@ -64,14 +64,17 @@ def get_year_data(xml_root):
     return year_data
 
 
-xml_file = 'xml'
-if len(sys.argv) > 1:
-    xml_file = sys.argv[1]
+if len(sys.argv) == 1:
+    print("Give me some XML files to parse.")
+    exit(1)
 
-tree = ET.parse(xml_file)
-root = tree.getroot()
+xml_files_to_parse = sys.argv[1:]
 
-year_data = get_year_data(root)
+for xml_file in xml_files_to_parse:
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+    year_data = get_year_data(root)
+
 
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
