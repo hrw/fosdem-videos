@@ -78,9 +78,9 @@ for xml_file in xml_files_to_parse:
     year_data = get_year_data(root)
 
 if len(xml_files_to_parse) > 1:
-    year = ""  # for multiple years we do not want year in page title
+    multiple_years = True
 else:
-    year = year_data["year"]
+    multiple_years = False
 
 
 file_loader = FileSystemLoader('templates')
@@ -90,8 +90,9 @@ template = env.get_template('index.html.j2')
 
 output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
-                         talks=year_data["talks"], year=year,
+                         talks=year_data["talks"], year=year_data["year"],
                          show_webm=year_data["show_webm"],
+                         multiple_years=multiple_years,
                          amount_talks=len(year_data["talks"]),
                          amount_slides=year_data["amounts"]["slides"],
                          amount_videos=year_data["amounts"]["videos"],

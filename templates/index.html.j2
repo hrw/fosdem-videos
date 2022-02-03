@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FOSDEM {{ year }} videos</title>
+    <title>FOSDEM {% if not multiple_years %}{{ year }} {% endif %}videos</title>
     <meta name="description" content="Other way to check for FOSDEM videos. One searchable table with links to talks, slides and videos." />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -85,18 +85,24 @@ a {
     <ul>
     {% for y in years %}
          <li>
-         {% if y != year %}
+         {% if y != year or multiple_years %}
          <a href="{{ y }}.html">{{ y }}</a>
          {% else %}
          {{ y }}
          {% endif %}
          </li>
     {% endfor %}
+    {% if not multiple_years %}
+         <li><a href="allyears.html">All years</a></li>
+    {% elif multiple_years %}
+         <li>All years</li>
+    {% endif %}
 </ul>
 
 <table class="videos">
     <thead>
         <tr>
+            {% if multiple_years %}<th>Year</th>{% endif %}
             <th>Time</th>
             <th>Room</th>
             <th>Track</th>
@@ -112,6 +118,7 @@ a {
     <tbody>
 {% for talk in talks %}
 <tr>
+{% if multiple_years %}<td>{{ talk.year }}</td>{% endif %}
 <td>{{ talk.start }}</td>
 <td>{{ talk.room }}</td>
 <td>{{ talk.track }}</td>
