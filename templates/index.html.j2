@@ -116,7 +116,7 @@ a {
 <td>{{ talk.room }}</td>
 <td>{{ talk.track }}</td>
 <td>{{ talk.persons }}</td>
-<td><a href="https://fosdem.org/{{ year }}/schedule/event/{{ talk.slug }}">{{ talk.title }}</a></td>
+<td><a href="https://fosdem.org/{{ talk.year }}/schedule/event/{{ talk.slug }}">{{ talk.title }}</a></td>
 <td>
 {% if talk.slides %}
 <a href="{{ talk.slides }}">Slides</a>

@@ -28,6 +28,7 @@ def get_year_data(xml_root):
                     'title': talk.find('title').text,
                     'track': talk.find('track').text,
                     'slug': talk.find('slug').text,
+                    'year': year_data["year"],
                 }
 
                 talk_with_video = False
