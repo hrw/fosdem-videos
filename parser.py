@@ -8,8 +8,6 @@ import sys
 
 
 def get_year_data(xml_root):
-    year_data = {"year": 0, "talks": [], "show_webm": False,
-                 "amounts": {"talks": 0, "slides": 0, "videos": 0}}
 
     for day in root.iter('day'):
 
@@ -69,6 +67,9 @@ if len(sys.argv) == 1:
     exit(1)
 
 xml_files_to_parse = sys.argv[1:]
+
+year_data = {"year": 0, "talks": [], "show_webm": False,
+             "amounts": {"talks": 0, "slides": 0, "videos": 0}}
 
 for xml_file in xml_files_to_parse:
     tree = ET.parse(xml_file)
