@@ -14,8 +14,8 @@ root = tree.getroot()
 
 talks = []
 show_webm = False
-slides = 0
-videos = 0
+amount_slides = 0
+amount_videos = 0
 
 for day in root.iter('day'):
 
@@ -49,7 +49,7 @@ for day in root.iter('day'):
             if talk.find('attachments'):
                 for link in talk.find('attachments'):
                     new_talk['slides'] = link.attrib['href']
-                    slides += 1
+                    amount_slides += 1
 
             for link in talk.find('links'):
                 if 'WebM' in link.text:
@@ -61,11 +61,11 @@ for day in root.iter('day'):
                     talk_with_video = True
                 elif 'Slides' in link.text or 'Presentation' in link.text:
                     new_talk['slides'] = link.attrib['href']
-                    slides += 1
+                    amount_slides += 1
 
             talks.append(new_talk)
             if talk_with_video:
-                videos += 1
+                amount_videos += 1
 
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
@@ -76,10 +76,11 @@ output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
                          talks=talks, year=year, show_webm=show_webm,
                          amount_talks=len(talks),
-                         amount_slides=slides,
-                         amount_videos=videos,
+                         amount_slides=amount_slides,
+                         amount_videos=amount_videos,
                          years=range(2015, 2023))
 
 print(output)
-print(f"Talks: {len(talks)} Slides: {slides} Videos: {videos}",
+print(f"Talks: {len(talks)} amount_slides: {amount_slides} "
+      " amount_videos: {amount_videos}",
       file=sys.stderr)
