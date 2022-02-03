@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# SPDX-License-Identifier: MIT
 
 from datetime import date, datetime
 from jinja2 import Environment, FileSystemLoader
