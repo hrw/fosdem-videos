@@ -52,6 +52,7 @@ def get_year_data(xml_root):
                     elif link.attrib['href'].endswith('mp4'):
                         new_talk['mp4'] = link.attrib['href']
                         talk_with_video = True
+                        year_data["show_mp4"] = True
                     elif 'Slides' in link.text or 'Presentation' in link.text:
                         new_talk['slides'] = link.attrib['href']
                         year_data["amounts"]["slides"] += 1
@@ -69,7 +70,7 @@ if len(sys.argv) == 1:
 
 xml_files_to_parse = sys.argv[1:]
 
-year_data = {"year": 0, "talks": [], "show_webm": False,
+year_data = {"year": 0, "talks": [], "show_webm": False, "show_mp4": False,
              "amounts": {"talks": 0, "slides": 0, "videos": 0}}
 
 for xml_file in xml_files_to_parse:
@@ -92,6 +93,7 @@ output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                                                          "%d %B %Y %H:%M"),
                          talks=year_data["talks"], year=year_data["year"],
                          show_webm=year_data["show_webm"],
+                         show_mp4=year_data["show_mp4"],
                          multiple_years=multiple_years,
                          amount_talks=len(year_data["talks"]),
                          amount_slides=year_data["amounts"]["slides"],

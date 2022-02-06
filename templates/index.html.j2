@@ -116,7 +116,7 @@ a {
             {% if show_webm %}
             <th>WebM video</th>
             {% endif %}
-            {% if amount_videos > 0 %}
+            {% if amount_videos > 0 and show_mp4 %}
             <th>MP4 video</th>
             {% endif %}
         </tr>
@@ -142,7 +142,7 @@ a {
 {% endif %}
 </td>
 {% endif %}
-{% if amount_videos > 0 %}
+{% if amount_videos > 0 and show_mp4 %}
 <td>
 {% if talk.mp4 %}
 <a href="{{ talk.mp4 }}">MP4 video</a>
