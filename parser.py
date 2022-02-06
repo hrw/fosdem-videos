@@ -45,11 +45,11 @@ def get_year_data(xml_root):
                         year_data["amounts"]["slides"] += 1
 
                 for link in talk.find('links'):
-                    if 'WebM' in link.text:
+                    if link.attrib['href'].endswith('webm'):
                         new_talk['webm'] = link.attrib['href']
                         talk_with_video = True
                         year_data["show_webm"] = True
-                    elif 'mp4' in link.text or 'mp4' in link.attrib['href']:
+                    elif link.attrib['href'].endswith('mp4'):
                         new_talk['mp4'] = link.attrib['href']
                         talk_with_video = True
                     elif 'Slides' in link.text or 'Presentation' in link.text:
