@@ -96,7 +96,7 @@ output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
                          amount_talks=len(year_data["talks"]),
                          amount_slides=year_data["amounts"]["slides"],
                          amount_videos=year_data["amounts"]["videos"],
-                         years=range(2015, 2023))
+                         years=range(2012, 2023))
 
 print(output)
 print(f"Talks: {len(year_data['talks'])} "
