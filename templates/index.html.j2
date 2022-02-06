@@ -92,11 +92,15 @@ a {
          {% endif %}
          </li>
     {% endfor %}
+         <li>
     {% if not multiple_years %}
-         <li><a href="videoyears.html">All years with videos (2014+)</a></li>
-    {% elif multiple_years %}
-         <li>All years with videos (2014+)</li>
+         <a href="videoyears.html">
     {% endif %}
+         All years with videos ({{ years[0] }}+)
+    {% if not multiple_years %}
+         </a>
+    {% endif %}
+         </li>
 </ul>
 
 <table class="videos">
