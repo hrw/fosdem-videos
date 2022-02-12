@@ -129,7 +129,7 @@ a {
 <td>{{ talk.room }}</td>
 <td>{{ talk.track }}</td>
 <td>{{ talk.persons }}</td>
-<td><a href="https://fosdem.org/{{ talk.year }}/schedule/event/{{ talk.slug }}">{{ talk.title }}</a></td>
+<td><a href="https://fosdem.org/{{ talk.year }}/schedule/event/{{ talk.slug }}{% if talk.year == 2012 %}.html{% endif %}">{{ talk.title }}</a></td>
 <td>
 {% if talk.slides %}
 <a href="{{ talk.slides }}">Slides</a>
