@@ -56,11 +56,14 @@ table.videos tbody tr.odd td {
         background-color: lightgrey;
 }
 
-.legacy, table.videos tbody tr.odd td.legacy {
-        background-color: lightpink;
-}
 a {
 	text-decoration: none;
+}
+
+ul#years li {
+        display: inline-block;
+        width: 8em;
+        height: 3em;
 }
     </style>
 </head>
@@ -88,7 +91,7 @@ a {
     <p>There are <strong>{{ amount_talks }}</strong> talks, <strong>{{ amount_slides }}</strong> has slides, <strong>{{ amount_videos }}</strong> has videos.</p>
 
 <h1>Covered years</h1>
-    <ul>
+    <ul id="years">
     {% for y in years %}
          <li>
          {% if y != year or multiple_years %}
@@ -98,7 +101,9 @@ a {
          {% endif %}
          </li>
     {% endfor %}
-         <li>
+</ul>
+
+<p>
     {% if not multiple_years %}
          <a href="videoyears.html">
     {% endif %}
@@ -106,8 +111,7 @@ a {
     {% if not multiple_years %}
          </a>
     {% endif %}
-         </li>
-</ul>
+</p>
 
 <table class="videos">
     <thead>
