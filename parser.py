@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # SPDX-License-Identifier: MIT
 
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from jinja2 import Environment, FileSystemLoader
 import xml.etree.ElementTree as ET
 import sys
@@ -89,8 +89,8 @@ env = Environment(loader=file_loader)
 
 template = env.get_template('index.html.j2')
 
-output = template.render(generate_time=datetime.strftime(datetime.utcnow(),
-                                                         "%d %B %Y %H:%M"),
+output = template.render(generate_time=datetime.strftime(
+                            datetime.now(timezone.utc), "%d %B %Y %H:%M"),
                          talks=year_data["talks"], year=year_data["year"],
                          show_webm=year_data["show_webm"],
                          show_mp4=year_data["show_mp4"],
