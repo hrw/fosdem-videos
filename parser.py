@@ -39,7 +39,7 @@ def get_year_data(xml_root):
 
                 new_talk['persons'] = ', '.join(persons)
 
-                if talk.find('attachments'):
+                if 'attachements' in talk:
                     for link in talk.find('attachments'):
                         new_talk['slides'] = link.attrib['href']
                         year_data["amounts"]["slides"] += 1
