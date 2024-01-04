@@ -39,9 +39,6 @@ def get_year_data(xml_root):
 
                 new_talk['persons'] = ', '.join(persons)
 
-                for link in talk.find('attachments'):
-                    new_talk['slides'] = link.attrib['href']
-
                 for link in talk.find('links'):
                     if link.attrib['href'].endswith('webm'):
                         new_talk['webm'] = link.attrib['href']
@@ -53,6 +50,9 @@ def get_year_data(xml_root):
                         year_data["show_mp4"] = True
                     elif 'Slides' in link.text or 'Presentation' in link.text:
                         new_talk['slides'] = link.attrib['href']
+
+                for link in talk.find('attachments'):
+                    new_talk['slides'] = link.attrib['href']
 
 
                 if 'slides' in new_talk:
