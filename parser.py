@@ -51,8 +51,12 @@ def get_year_data(xml_root):
                     elif 'Slides' in link.text or 'Presentation' in link.text:
                         new_talk['slides'] = link.attrib['href']
 
-                for link in talk.find('attachments'):
-                    new_talk['slides'] = link.attrib['href']
+                try:
+                    for link in talk.find('attachments'):
+                        new_talk['slides'] = link.attrib['href']
+                except TypeError:
+                    # <attachments> are in 2020+
+                    pass
 
 
                 if 'slides' in new_talk:
