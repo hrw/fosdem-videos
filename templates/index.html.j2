@@ -6,80 +6,30 @@
     <title>FOSDEM {% if not multiple_years %}{{ year }} {% endif %}videos</title>
     <meta name="description" content="Other way to check for FOSDEM videos. One searchable table with links to talks, slides and videos." />
     <meta name="keywords" content="fosdem video videos talk slides presentation speaker conference" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/datatables.mark.js/2.0.0/datatables.mark.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.min.css"/>
+    <meta property="og:title" content="FOSDEM videos table" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://marcin.juszkiewicz.com.pl/download/tables/fosdem/" />
+    <meta property="og:description" content="FOSDEM videos table" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="Marcin Juszkiewicz" />
 
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
-    <script type="text/javascript" id="js">
-            $(document).ready(function() {
-                    $("table").DataTable( {
-                            pageLength  : -1,
-                            fixedHeader : true,
-                            mark        : true,
-                            dom         : 'Bft',
-                            order: [[0, 'asc'],[1, 'asc']],
-                    });
-    });
-    </script>
-    <style type="text/css">
-
-table.videos {
-        border: 1px solid #000;
-}
-
-table.videos th {
-        text-align: center;
-        padding: 0.5em;
-        line-height: 2em;
-        color: white;
-}
-
-table.videos thead {
-        border: 1px solid black;
-        background-color: grey;
-}
-
-table.videos td {
-        padding: 0.5em;
-}
-
-table.videos tbody tr.odd td {
-        background-color: lightgrey;
-}
-
-a {
-	text-decoration: none;
-}
-
+{% include "common/datatables-js-css.inc.j2" %}
+{% include "common/css.inc.j2" %}
+<style>
 ul#years li {
         display: inline-block;
         width: 8em;
         height: 3em;
 }
-
-.dataTables_wrapper .dataTables_filter {
-    height: 3em;
-    float: revert;
-    text-align: center !important;
-}
-    </style>
+</style>
 </head>
 <body>
 
 <h1>FOSDEM {% if not multiple_years %}{{ year }} {% endif %}videos</h1>
     <p>This page provides alternative view for FOSDEM schedule. With direct links to slides and video files (where available).</p>
 
-<h1>How to use</h1>
+<h2>How to use</h2>
     <p>There are few features you can use:</p>
 
     <ul>
@@ -87,21 +37,16 @@ ul#years li {
     <li>clicking on header entries sorts table</li>
     </ul>
 
-<h1>Author info</h1>    
-    <p>
-    Table is maintained by <a href="https://marcin.juszkiewicz.com.pl/">Marcin Juszkiewicz</a> &mdash; AArch64/Arm developer working at Red Hat as Linaro assignee.
-    </p>
-    <p>Code available in <a href="https://github.com/hrw/fosdem-videos">repo on GitHub</a>.</p>
+{% include "common/author-tables-help.inc.j2" %}
 
-<h1>Build info</h1>
-    <p>Table generated on <strong>{{ generate_time }} UTC</strong>.</p>
+<h2>Some stats</h2>
     <p>There are
     	<strong>{{ amount_talks }}</strong> talks in the table,
 	<strong>{{ amount_slides }} ({{ (100 * amount_slides / amount_talks)|round|int }}%)</strong> have slides,
 	<strong>{{ amount_videos }} ({{ (100 * amount_videos / amount_talks)|round|int }}%)</strong> have videos.
     </p>
 
-<h1>Covered years</h1>
+<h2>Covered years</h2>
     <ul id="years">
     {% for y in years %}
          <li>
@@ -112,9 +57,7 @@ ul#years li {
          {% endif %}
          </li>
     {% endfor %}
-</ul>
-
-<p>
+        <li>
     {% if not multiple_years %}
          <a href="videoyears.html">
     {% endif %}
@@ -122,9 +65,11 @@ ul#years li {
     {% if not multiple_years %}
          </a>
     {% endif %}
-</p>
+         </li>
 
-<table class="videos">
+</ul>
+
+<table id="infotable" class="display" style="width:100%">
     <thead>
         <tr>
             {% if multiple_years %}<th>Year</th>{% endif %}
@@ -176,4 +121,13 @@ ul#years li {
     </tbody>
 </table>
 </body>
+<script>
+    new DataTable('#infotable', {
+            pageLength:         -1,
+            paging:             false,
+            scrollX:            false,
+            scrollCollapse:     false,
+            order:              [[1, 'asc'], [0, 'asc']]
+    });
+</script>
 </html>

@@ -100,6 +100,7 @@ output = template.render(generate_time=datetime.strftime(
                          show_webm=year_data["show_webm"],
                          show_mp4=year_data["show_mp4"],
                          multiple_years=multiple_years,
+                         git_repo="fosdem-videos",
                          amount_talks=len(year_data["talks"]),
                          amount_slides=year_data["amounts"]["slides"],
                          amount_videos=year_data["amounts"]["videos"],
