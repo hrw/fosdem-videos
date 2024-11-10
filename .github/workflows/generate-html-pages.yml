@@ -5,6 +5,9 @@ on:
   push:
     branches:
     - "master"
+  schedule:
+    # Each month on 3rd at 03:03
+    - cron: "3 3 3 * *"
 
 jobs:
   generate-and-deploy:
