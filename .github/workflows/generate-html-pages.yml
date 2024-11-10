@@ -8,6 +8,8 @@ on:
   schedule:
     # Each month on 3rd at 03:03
     - cron: "3 3 3 * *"
+    # After FOSDEM check more often as authors accept videos of their talks
+    - cron: "3 * * 2 *"
 
 jobs:
   generate-and-deploy:
