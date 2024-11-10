@@ -1,0 +1,53 @@
+name: Generate HTML tables
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - "master"
+
+jobs:
+  generate-and-deploy:
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: update packages data
+        run: sudo apt-get update
+
+      - name: install x32 headers
+        run: sudo apt-get install curl
+
+      - name: Generate pages
+        run: |
+          years=`seq 2012 $(date +%Y)`
+
+          mkdir -p out
+          for year in years
+          do
+            echo -n $year
+            curl -L -s https://fosdem.org/${year}/schedule/xml -o ${year}.xml
+
+            python3 parser ${year}.xml >out/${year}.html
+          done
+
+          python parser.py 20*.xml > out/videoyears.html
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
