@@ -85,8 +85,10 @@ for xml_file in xml_files_to_parse:
 
 if len(xml_files_to_parse) > 1:
     multiple_years = True
+    year = f"Years: 2012 - {year_data['year']}"
 else:
     multiple_years = False
+    year = f"Year: {year_data['year']}"
 
 
 file_loader = FileSystemLoader('templates')
@@ -107,7 +109,8 @@ output = template.render(generate_time=datetime.strftime(
                          years=range(2012, date.today().year + 1))
 
 print(output)
-print(f"Talks: {len(year_data['talks'])} "
+print(f"{year} "
+      f"Talks: {len(year_data['talks'])} "
       f"Slides: {year_data['amounts']['slides']} "
       f"Videos: {year_data['amounts']['videos']}",
       file=sys.stderr)

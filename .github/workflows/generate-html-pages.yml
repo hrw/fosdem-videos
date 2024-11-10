@@ -26,7 +26,6 @@ jobs:
           mkdir -p out
           for year in $years
           do
-            echo -n $year
             curl -L -s https://fosdem.org/${year}/schedule/xml -o ${year}.xml
 
             python3 parser.py ${year}.xml >out/${year}.html
