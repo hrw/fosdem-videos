@@ -33,6 +33,9 @@ jobs:
 
           python parser.py 20*.xml > out/videoyears.html
 
+          cd out
+          ln -sf $(date +%Y).html index.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
