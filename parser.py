@@ -96,6 +96,13 @@ env = Environment(loader=file_loader)
 
 template = env.get_template('index.html.j2')
 
+page_title = f"FOSDEM"
+
+if not multiple_years:
+    page_title += " " + str(year_data["year"])
+
+page_title += " schedule with links to slides and videos"
+
 output = template.render(generate_time=datetime.strftime(
                             datetime.now(timezone.utc), "%d %B %Y %H:%M"),
                          talks=year_data["talks"], year=year_data["year"],
@@ -106,6 +113,7 @@ output = template.render(generate_time=datetime.strftime(
                          amount_talks=len(year_data["talks"]),
                          amount_slides=year_data["amounts"]["slides"],
                          amount_videos=year_data["amounts"]["videos"],
+                         page_title=page_title,
                          years=range(2012, date.today().year + 1))
 
 print(output)

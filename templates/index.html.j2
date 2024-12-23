@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>FOSDEM {% if not multiple_years %}{{ year }} {% endif %}videos</title>
+    <title>{{ page_title }}</title>
     <meta name="description" content="Other way to check for FOSDEM videos. One searchable table with links to talks, slides and videos." />
     <meta name="keywords" content="fosdem video videos talk slides presentation speaker conference" />
 
-    <meta property="og:title" content="FOSDEM videos table" />
+    <meta property="og:title" content="{{ page_title }}" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://marcin.juszkiewicz.com.pl/download/tables/fosdem/" />
-    <meta property="og:description" content="FOSDEM videos table" />
+    <meta property="og:url" content="https://gpages.juszkiewicz.com.pl/fosdem-videos/" />
+    <meta property="og:description" content="Alternative view for FOSDEM schedule. With direct links to slides and video files (where available)." />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:site_name" content="Marcin Juszkiewicz" />
 
@@ -26,7 +26,7 @@ ul#years li {
 </head>
 <body>
 
-<h1>FOSDEM {% if not multiple_years %}{{ year }} {% endif %}videos</h1>
+<h1>{{ page_title }}</h1>
     <p>This page provides alternative view for FOSDEM schedule. With direct links to slides and video files (where available).</p>
 
 <h2>How to use</h2>
