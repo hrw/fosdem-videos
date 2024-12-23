@@ -26,7 +26,14 @@ jobs:
 
       - name: Generate pages
         run: |
-          years=`seq 2012 $(date +%Y)`
+          upto_year=$(date +%Y)
+
+          # December has schedule for next year so start using it
+          if [ $(date +%m) == "12" ]; then
+            upto_year=$(($upto_year + 1))
+          fi
+
+          years=`seq 2012 ${upto_year}`
 
           mkdir -p out
           for year in $years
@@ -39,7 +46,7 @@ jobs:
           python parser.py 20*.xml > out/videoyears.html
 
           cd out
-          ln -sf $(date +%Y).html index.html
+          ln -sf ${upto_year}.html index.html
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
