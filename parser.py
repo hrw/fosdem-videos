@@ -83,6 +83,10 @@ for xml_file in xml_files_to_parse:
     root = tree.getroot()
     year_data = get_year_data(root)
 
+if len(year_data["talks"]) == 0:
+    print(f"No schedule yet for {year_data['year']}", file=sys.stderr)
+    sys.exit(0)
+
 if len(xml_files_to_parse) > 1:
     multiple_years = True
     year = f"Years: 2012 - {year_data['year']}"
