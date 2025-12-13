@@ -107,6 +107,11 @@ if not multiple_years:
 
 page_title += " schedule with links to slides and videos"
 
+end_year = date.today().year + 1
+
+if date.today().month == 12:
+    end_year = date.today().year + 2
+
 output = template.render(generate_time=datetime.strftime(
                             datetime.now(timezone.utc), "%d %B %Y %H:%M"),
                          talks=year_data["talks"], year=year_data["year"],
@@ -118,7 +123,7 @@ output = template.render(generate_time=datetime.strftime(
                          amount_slides=year_data["amounts"]["slides"],
                          amount_videos=year_data["amounts"]["videos"],
                          page_title=page_title,
-                         years=range(2012, date.today().year + 1))
+                         years=range(2012, end_year))
 
 print(output)
 print(f"{year} "
